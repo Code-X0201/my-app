@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IT Login</title>
+</head>
+
+<body style="background:#0b1220; color:white; font-family:Arial; text-align:center; padding-top:80px;">
+
+<h1>🔐 IT HELPDESK LOGIN</h1>
+
+<input id="user" placeholder="Username"
+style="padding:10px; width:200px;"><br><br>
+
+<input id="pass" type="password" placeholder="Password"
+style="padding:10px; width:200px;"><br><br>
+
+<button onclick="login()" style="padding:10px 20px;">LOGIN</button>
+
+<p id="msg" style="color:red;"></p>
+
+<script>
+
+// default credentials
+if (!localStorage.getItem("it_user")) {
+    localStorage.setItem("it_user", "admin");
+    localStorage.setItem("it_pass", "1234");
+}
+
+function login() {
+
+    const user = document.getElementById("user").value;
+    const pass = document.getElementById("pass").value;
+
+    const savedUser = localStorage.getItem("it_user");
+    const savedPass = localStorage.getItem("it_pass");
+
+    if (user === savedUser && pass === savedPass) {
+
+        localStorage.setItem("it_login", "true");
+        window.location.href = "/dashboard.html";
+
+    } else {
+        document.getElementById("msg").innerText = "Invalid login!";
+    }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EDVOCOMM</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body style="
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    padding-top:40px;
+">
+
+<h1>📡 EDVOCOMM HELPDESK</h1>
+
+<div style="background:#1e293b; width:340px; margin:auto; padding:20px; border-radius:12px;">
+
+    <form id="ticketForm">
+
+        <input name="seat" placeholder="Site / Seat / PC Number"
+        style="width:90%; padding:10px;"><br><br>
+
+        <select name="issue" style="width:95%; padding:10px;">
+            <option>INTERNET ISSUE</option>
+            <option>PC PROBLEM</option>
+            <option>LOG IN ISSUE</option>
+        </select><br><br>
+
+        <textarea name="userMessage" placeholder="Describe your issue"
+        style="width:90%; height:80px;"></textarea><br><br>
+
+        <select name="priority" style="width:95%; padding:10px;">
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+            <option value="Emergency">Emergency</option>
+        </select><br><br>
+
+        <!-- 📎 FILE UPLOAD -->
+        <input type="file" name="file" style="width:95%;"><br><br>
+
+        <button type="submit"
+        style="width:95%; padding:12px; background:green; color:white; border:none; border-radius:8px;">
+            SUBMIT REPORT
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+const socket = io();
+
+// 📤 SEND TICKET WITH FILE
+document.getElementById("ticketForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    await fetch("/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    e.target.reset();
+    alert("Ticket Sent!");
+});
+</script>
+
+</body>
+</html>
